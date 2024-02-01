@@ -1,4 +1,4 @@
-package com.zpo.studentsystem.model;
+package com.zpo.studentsystem;
 
 import jakarta.persistence.*;
 import lombok.Data;
