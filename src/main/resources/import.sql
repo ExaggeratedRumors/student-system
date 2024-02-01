@@ -1,1 +1,1 @@
-insert into students (name, lastname, grades_id) values ('test', 'test1', 1);
+insert into students (name, lastname, grades_id) values ('Fourier', 'Jean', 1);
