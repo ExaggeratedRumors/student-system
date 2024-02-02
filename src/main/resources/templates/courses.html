@@ -15,20 +15,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="c : ${courses}">
+        <tr th:each="c : ${courses}" th:data-student-id="${s.courseId}">
             <td th:text="${c.courseId}">ID</td>
             <td th:text="${c.name}">Nazwa</td>
             <td>
-                <button type="button" th:onclick="'deleteCourse(' + ${c.courseId} + ')'">Usuń</button>
+                <button type="button" class="delete-button" th:data-course-id="${c.courseId}">Usuń</button>
             </td>
         </tr>
         </tbody>
     </table>
 
     <h2>Dodawanie przedmiotu</h2>
-    <form action="/add_course" method="post">
-        <label for="courseName">Nazwa przedmiotu:</label>
-        <input type="text" id="courseName" name="courseName" required>
+    <form action="/courses/add" method="post">
+        <label for="name">Nazwa przedmiotu:</label>
+        <input type="text" id="name" name="courseName" required>
 
         <button type="submit" onclick="updateCourseAction()">Dodaj przedmiot</button>
     </form>
@@ -38,14 +38,41 @@
     <button onclick="redirectToStudents()">Studenci</button>
 
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    deleteCourse(this.getAttribute('data-course-id'));
+                });
+            });
+        });
+
         function deleteCourse(courseId) {
-            window.location.href = "/delete_course/" + courseId;
+            fetch('/courses/delete/' + courseId,  {
+                method: 'DELETE'
+            }).then(response => {
+                if (response.ok) {
+                    document.querySelector('tr[data-course-id="' + courseId + '"]').remove();
+                } else {
+                    alert("Nie udało się usunąć kursu.");
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert("Wystąpił błąd podczas usuwania kursu.");
+            });
         }
+
         function updateCourseAction() {
-            var courseName = document.getElementById("courseName").value;
-            var form = document.querySelector("form");
-            form.action = "/add_course/" + encodeURIComponent(courseName);
+            const name = document.getElementById("name").value;
+            fetch('/courses/add/' + name,  {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then( _ => {
+                window.location.href = "/courses";
+            });
         }
+
         function redirectToStudents() {
             window.location.href = "/students";
         }

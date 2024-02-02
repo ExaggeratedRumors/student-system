@@ -1,0 +1,43 @@
+### Dodawanie pięciu studentów
+POST http://localhost:8080/students/add/Halford/Smith
+###
+POST http://localhost:8080/students/add/Thomas/Tarantino
+###
+POST http://localhost:8080/students/add/Elvis/Ratzinger
+###
+POST http://localhost:8080/students/add/Emma/Talyor
+###
+POST http://localhost:8080/students/add/Jessica/Swift
+
+### Usuwanie studenta o ID = 5
+DELETE http://localhost:8080/students/delete/5
+
+### Wyświetlanie studentów
+GET http://localhost:8080/students/
+
+
+
+### Dodawanie czterech kursów
+POST http://localhost:8080/courses/add/PSI
+###
+POST http://localhost:8080/courses/add/ZPO
+###
+POST http://localhost:8080/courses/add/RIOBD
+###
+POST http://localhost:8080/courses/add/AD
+
+### Usuwanie kursu o ID = 1
+DELETE http://localhost:8080/courses/delete/1
+
+### Wyświetlanie kursów
+GET http://localhost:8080/courses
+
+
+
+### Dodanie systemu oceny do studenta 1 i przedmiotu 2 o punktacji 10
+POST http://localhost:8080/courses/grades/add/1/2/10
+
+### Zaktualizowanie oceny studenta 1 i przedmiotu 2 do 5 punktów
+POST http://localhost:8080/courses/grades/update/1/2/5
+
+

@@ -16,7 +16,5 @@ public class GradeId implements java.io.Serializable {
         this.courseId = courseId;
     }
 
-    public GradeId() {
-
-    }
+    public GradeId() {}
 }
