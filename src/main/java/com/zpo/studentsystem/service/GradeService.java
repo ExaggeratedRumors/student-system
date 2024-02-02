@@ -43,7 +43,7 @@ public class GradeService {
         return gradeRepo.save(grade);
     }
 
-    public Grade updateGrade(Long studentId, Long courseId, Long points) {
+    public Integer updateGrade(Long studentId, Long courseId, Long points) {
         return gradeRepo.updateGrade(studentId, courseId, points);
     }
 }

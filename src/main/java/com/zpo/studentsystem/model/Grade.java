@@ -4,13 +4,15 @@ package com.zpo.studentsystem.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Table(name="grades")
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Grade {
+public class Grade implements Serializable {
     @EmbeddedId
     private GradeId id;
 

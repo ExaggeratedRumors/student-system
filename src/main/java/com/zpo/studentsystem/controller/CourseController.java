@@ -51,16 +51,16 @@ class CourseController {
     }
 
     @PostMapping("/courses/grades/add/{studentId}/{courseId}/{maxPoints}")
-    public ResponseEntity<Grade> addGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long maxPoints) {
+    public ResponseEntity<Long> addGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long maxPoints) {
         Grade result = gradeService.addGrade(studentId, courseId, maxPoints);
-        if(result != null) return new ResponseEntity<>(result, HttpStatus.OK);
+        if(result != null) return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/courses/grades/update/{studentId}/{courseId}/{points}")
     public ResponseEntity<Grade> updateGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long points) {
-        Grade result = gradeService.updateGrade(studentId, courseId, points);
-        if(result != null) return new ResponseEntity<>(result, HttpStatus.OK);
+        Integer result = gradeService.updateGrade(studentId, courseId, points);
+        if(result > 0) return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 

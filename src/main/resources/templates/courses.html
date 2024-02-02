@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="c : ${courses}" th:data-course-id="${s.courseId}">
+        <tr th:each="c : ${courses}" th:data-course-id="${c.courseId}">
             <td th:text="${c.courseId}">ID</td>
             <td th:text="${c.name}">Nazwa</td>
             <td>

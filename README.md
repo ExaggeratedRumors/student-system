@@ -35,4 +35,6 @@ GET http://localhost:8080/courses
 POST http://localhost:8080/courses/grades/add/{studentId}/{courseId}/{maxPoints}
 ### Update grade
 POST http://localhost:8080/courses/grades/update/{studentId}/{courseId}/{points}
+### Average grades HTML page
+GET http://localhost:8080/courses/average
 ```
