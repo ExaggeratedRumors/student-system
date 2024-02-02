@@ -19,5 +19,5 @@ public class Course {
     @Column(name = "name")
     private String name;
     @Column(name = "grade_id")
-    private Long gradeID;
+    private Long gradesId;
 }

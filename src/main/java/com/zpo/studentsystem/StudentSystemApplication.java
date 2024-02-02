@@ -1,6 +1,5 @@
 package com.zpo.studentsystem;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,3 +9,5 @@ public class StudentSystemApplication {
         SpringApplication.run(StudentSystemApplication.class, args);
     }
 }
+
+

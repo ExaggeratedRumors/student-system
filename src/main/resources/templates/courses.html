@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+    <meta charset="UTF-8">
+    <title></title>
+    </head>
+    <body>
+    <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Ocena ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${courses}">
+            <td th:text="${c.courseId}">ID</td>
+            <td th:text="${c.name}">Imię</td>
+            <td th:text="${c.gradesId}">Ocena</td>
+        </tr>
+        </tbody>
+    </table>
+    </body>
+</html>

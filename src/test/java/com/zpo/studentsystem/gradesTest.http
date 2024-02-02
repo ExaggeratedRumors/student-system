@@ -1,0 +1,26 @@
+GET http://localhost:8080/fill
+###
+GET http://localhost:8080/add_course/a
+###
+GET http://localhost:8080/add_course/b
+###
+GET http://localhost:8080/add_grade/1/1/10
+###
+GET http://localhost:8080/add_grade/1/2/10
+###
+GET http://localhost:8080/grades/1
+###
+GET http://localhost:8080/remove_course/1
+###
+GET http://localhost:8080/grades/
+###
+POST http://localhost:8080/grades/
+Content-Type: application/json
+
+{
+  "studentId": 1,
+  "name": "marcin",
+  "surname": "marcinb",
+  "gradeId": 1
+}
+

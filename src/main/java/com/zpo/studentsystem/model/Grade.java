@@ -12,15 +12,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 public class Grade {
-    @Id
-    @Column(name = "student_id")
-    private Long studentId;
-    @Column(name = "course_id")
-    private Integer courseId;
-    @Column(name = "points")
-    private Integer points;
-    @Column(name = "max_points")
-    private Integer maxPoints;
-    @Column(name = "final_grade")
-    private Integer finalGrade;
+    @EmbeddedId
+    private GradeId id;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @MapsId("studentId")
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @MapsId("courseId")
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    private int points;
+    private int maxPoints;
 }
