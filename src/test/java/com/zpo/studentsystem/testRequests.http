@@ -40,4 +40,6 @@ POST http://localhost:8080/courses/grades/add/1/2/10
 ### Zaktualizowanie oceny studenta 1 i przedmiotu 2 do 5 punktów
 POST http://localhost:8080/courses/grades/update/1/2/5
 
+### Wyświetlenie listy kursów wraz ze średnimi ocenami
+POST http://localhost:8080/courses/average
 
