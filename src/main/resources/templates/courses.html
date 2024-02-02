@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head>
+<head>
     <meta charset="UTF-8">
     <title></title>
-    </head>
-    <body>
+</head>
+<body>
     <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
         <thead>
         <tr>
             <th>ID</th>
             <th>Nazwa</th>
-<!--            <th>Ocena ID</th>-->
+            <th>Akcje</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="c : ${courses}">
             <td th:text="${c.courseId}">ID</td>
-            <td th:text="${c.name}">Imię</td>
-<!--            <td th:text="${c.gradesId}">Ocena</td>-->
+            <td th:text="${c.name}">Nazwa</td>
+            <td>
+                <button type="button" th:onclick="'deleteCourse(' + ${c.courseId} + ')'">Remove</button>
+            </td>
         </tr>
         </tbody>
     </table>
-    </body>
+
+
+    <form action="/add_course" method="post">
+        <label for="courseName">Course Name:</label>
+        <input type="text" id="courseName" name="courseName" required>
+
+        <button type="submit" onclick="updateCourseAction()">Add Course</button>
+    </form>
+
+
+    <button onclick="redirectToStudents()">Go to Students</button>
+
+    <script>
+        function deleteCourse(courseId) {
+            window.location.href = "/delete_course/" + courseId;
+        }
+
+        function updateCourseAction() {
+            var courseName = document.getElementById("courseName").value;
+            var form = document.querySelector("form");
+            form.action = "/add_course/" + encodeURIComponent(courseName);
+        }
+        function redirectToStudents() {
+            window.location.href = "/students";
+        }
+    </script>
+</body>
 </html>
