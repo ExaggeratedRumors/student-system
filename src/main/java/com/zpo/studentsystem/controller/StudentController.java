@@ -4,8 +4,6 @@ import com.zpo.studentsystem.model.Grade;
 import com.zpo.studentsystem.model.Student;
 import com.zpo.studentsystem.service.GradeService;
 import com.zpo.studentsystem.service.StudentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +17,6 @@ import java.util.List;
 
 @Controller
 class StudentController {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     StudentService studentService;
 
@@ -30,7 +26,6 @@ class StudentController {
     @RequestMapping("/students")
     public String getStudents(Model model) {
         List<Student> students = studentService.getStudents();
-        students.forEach(p -> log.info("SELECTED: {}", p));
         model.addAttribute("students", students);
         return "students.html";
     }
@@ -52,7 +47,6 @@ class StudentController {
     @RequestMapping("/students/grades/{studentId}")
     public String getGrades(@PathVariable Long studentId, Model model) {
         List<Grade> grades = gradeService.getStudentsGrades(studentId);
-        grades.forEach(p -> log.info("SELECTED: {}", p));
         model.addAttribute("grades", grades);
         return "grades.html";
     }

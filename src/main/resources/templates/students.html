@@ -16,13 +16,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="s : ${students}">
+    <tr th:each="s : ${students}" th:data-student-id="${s.studentId}">
         <td th:text="${s.studentId}">ID</td>
         <td th:text="${s.name}">Imię</td>
         <td th:text="${s.surname}">Nazwisko</td>
         <td>
-            <button type="button" th:onclick="'deleteStudent(' + ${s.studentId} + ')'">Usuń</button>
-
+            <button type="button" class="delete-button" th:data-student-id="${s.studentId}">Usuń</button>
             <button type="button" th:onclick="'viewStudentGrades(' + ${s.studentId} + ')'">Oceny</button>
         </td>
     </tr>
@@ -44,13 +43,27 @@
 <button onclick="redirectToCourses()">Przedmioty</button>
 
 <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                deleteStudent(this.getAttribute('data-student-id'));
+            });
+        });
+    });
+
     function deleteStudent(studentId) {
         fetch('/students/delete/' + studentId,  {
             method: 'DELETE'
-        }).then(location.reload);
-        const btn = document.querySelector("button");
-        btn.action = "/students";
-
+        }).then(response => {
+            if (response.ok) {
+                document.querySelector('tr[data-student-id="' + studentId + '"]').remove();
+            } else {
+                alert("Nie udało się usunąć studenta.");
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert("Wystąpił błąd podczas usuwania studenta.");
+        });
     }
 
     function viewStudentGrades(studentId) {
@@ -60,14 +73,14 @@
     function updateAction() {
         const name = document.getElementById("name").value;
         const surname = document.getElementById("surname").value;
-        const form = document.querySelector("form");
         fetch('/students/add/' + name + '/' + surname,  {
-            method: 'POST'
-        }).then(location.reload);
-        //window.location.href = "/students"
-        //form.action = "/students/add/" + encodeURIComponent(name) + "/" + encodeURIComponent(surname);
-        window.location.href = "/students";
-
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then( _ => {
+            window.location.href = "/students";
+        });
     }
 
     function redirectToCourses() {

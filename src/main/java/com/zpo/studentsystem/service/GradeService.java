@@ -35,18 +35,15 @@ public class GradeService {
         return gradeRepo.findByStudentId(studentId);
     }
 
-    public void addGrade(Long studentId, Long courseId, Long points) {
+    public Grade addGrade(Long studentId, Long courseId, Long maxPoints) {
         Student student = studentRepo.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found with id " + studentId));
         Course course = courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
-        Grade grade = new Grade();
-        GradeId id = new GradeId();
-        id.setStudentId(studentId);
-        id.setCourseId(courseId);
-        grade.setId(id);
-        grade.setStudent(student);
-        grade.setCourse(course);
-        grade.setMaxPoints(10L);
-        grade.setPoints(points);
-        gradeRepo.save(grade);
+        if(student == null || course == null) return null;
+        Grade grade = new Grade( new GradeId(studentId, courseId), student, course, 0L, maxPoints);
+        return gradeRepo.save(grade);
+    }
+
+    public Grade updateGrade(Long studentId, Long courseId, Long points) {
+        return gradeRepo.updateGrade(studentId, courseId, points);
     }
 }

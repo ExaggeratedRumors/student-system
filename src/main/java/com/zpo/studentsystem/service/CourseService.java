@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -26,19 +27,36 @@ public class CourseService {
         return courseRepo.findAll();
     }
 
-
-    public void addCourse(String name) {
+    public Course addCourse(String name) {
         Course course = new Course();
         course.setName(name);
-        courseRepo.save(course);
+        return courseRepo.save(course);
     }
 
-    public void deleteCourse(Long id) {
+    public Boolean deleteCourse(Long id) {
+        if(getCourse(id) == null) return false;
         courseRepo.deleteById(id);
+        return true;
     }
 
     public Course getCourse(Long courseId) {
         return courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
+    }
+
+    public HashMap<Course, Double> getAverageGrade() {
+        List<Course> courses = courseRepo.findAll();
+        courses.removeIf(it -> it.getGrades().isEmpty());
+        HashMap<Course, Double> averageGrades = new HashMap<>();
+        double value;
+
+        for(Course c : courses) {
+            value = c.getGrades().stream()
+                    .mapToDouble(Grade::getPoints)
+                    .average()
+                    .orElse(0.0);
+            averageGrades.put(c, value);
+        }
+        return averageGrades;
     }
 
 }
