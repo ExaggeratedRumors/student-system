@@ -10,14 +10,14 @@
         <tr>
             <th>ID</th>
             <th>Nazwa</th>
-            <th>Ocena ID</th>
+<!--            <th>Ocena ID</th>-->
         </tr>
         </thead>
         <tbody>
         <tr th:each="c : ${courses}">
             <td th:text="${c.courseId}">ID</td>
             <td th:text="${c.name}">Imię</td>
-            <td th:text="${c.gradesId}">Ocena</td>
+<!--            <td th:text="${c.gradesId}">Ocena</td>-->
         </tr>
         </tbody>
     </table>

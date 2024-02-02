@@ -2,14 +2,16 @@ package com.zpo.studentsystem.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
+import java.util.ArrayList;
 
 @Table(name="courses")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity
 public class Course {
     @Id
@@ -18,6 +20,7 @@ public class Course {
     private Long courseId;
     @Column(name = "name")
     private String name;
-    @Column(name = "grade_id")
-    private Long gradesId;
+    @Column(name = "grade")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Grade> grades = new ArrayList<>();
 }

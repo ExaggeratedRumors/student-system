@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,14 +31,13 @@ class CourseController {
     public String getCourses(Model model) {
         List<Course> courses = courseService.getCourses();
         courses.forEach(p -> log.info("SELECTED: {}", p));
-        System.out.println(courses.size());
         model.addAttribute("courses", courses);
         return "courses.html";
     }
 
     @RequestMapping("/add_course/{name}")
     public String addCourse(@PathVariable String name) {
-        courseService.addCourse(new Course(null, name, null));
+        courseService.addCourse(name);
         return "success.html";
     }
 
@@ -48,13 +48,8 @@ class CourseController {
     }
 
     @RequestMapping("/add_grade/{studentId}/{courseId}/{points}")
-    public String addGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Integer points) {
-
-        Student student = studentService.getStudent(studentId);
-        System.out.println(student);
-        Course course = courseService.getCourse(courseId);
-        System.out.println(course);
-        courseService.addGrade(new Grade(new GradeId(), student, course, points,10));
+    public String addGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long points) {
+        courseService.addGrade(studentId, courseId, points);
         return "success.html";
     }
 }

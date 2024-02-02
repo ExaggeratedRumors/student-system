@@ -1,15 +1,17 @@
 package com.zpo.studentsystem.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="students")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Data
+@Setter
+@Getter
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +21,7 @@ public class Student {
     private String name;
     @Column(name = "surname")
     private String surname;
-    @Column(name = "grades_id")
-    private Long gradesId;
-
+    @Column(name = "grades")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Grade> grades = new ArrayList<>();
 }

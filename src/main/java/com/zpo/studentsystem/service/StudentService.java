@@ -9,6 +9,7 @@ import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,10 +27,10 @@ public class StudentService {
     }
 
     public void fillStudentList() {
-        studentRepo.save(new Student(1L, "Lorem", "Ipsum", null));
-        studentRepo.save(new Student(2L, "Zagrożenie", "Z Fizyki", null));
-        studentRepo.save(new Student(3L, "Chat", "GPT", null));
-        studentRepo.save(new Student(4L, "ŚĆŹŻ", "1234", null));
+        addStudent("Lorem", "Ipsum");
+        addStudent("Zagrożenie", "Z Fizyki");
+        addStudent("Chat", "GPT");
+        addStudent("ŚĆŹŻ", "1234");
     }
 
     public void deleteStudent(Long id) {
@@ -37,7 +38,11 @@ public class StudentService {
         studentRepo.deleteById(id);
     }
 
-    public void addStudent(Student student) {
+    public void addStudent(String name, String surname) {
+
+        Student student = new Student();
+        student.setName(name);
+        student.setSurname(surname);
         studentRepo.save(student);
     }
 

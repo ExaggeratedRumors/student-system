@@ -10,6 +10,7 @@
 <table>
     <thead>
     <tr>
+        <th>Student</th>
         <th>Course</th>
         <th>Points</th>
     </tr>
@@ -17,6 +18,7 @@
     <tbody>
     <!-- Iterate over the list of grades -->
     <tr th:each="grade : ${grades}">
+        <td th:text="${grade.student.name}"></td>
         <!-- Display the course name -->
         <td th:text="${grade.course.name}"></td>
         <!-- Display the points -->

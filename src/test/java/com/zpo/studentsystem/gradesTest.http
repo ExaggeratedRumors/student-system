@@ -12,8 +12,6 @@ GET http://localhost:8080/grades/1
 ###
 GET http://localhost:8080/remove_course/1
 ###
-GET http://localhost:8080/grades/
-###
 POST http://localhost:8080/grades/
 Content-Type: application/json
 
