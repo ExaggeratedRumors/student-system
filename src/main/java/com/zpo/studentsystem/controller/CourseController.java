@@ -38,56 +38,45 @@ class CourseController {
 
     @PostMapping("/courses/add/{name}")
     public ResponseEntity<Course> addCourse(@PathVariable String name) {
+        System.out.println("Adding course \"" + name+"\"");
         Course result = courseService.addCourse(name);
-        if(result != null) return new ResponseEntity<>(result, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        System.out.println("Course added with id " + result.getCourseId());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/courses/delete/{id}")
     public ResponseEntity<Long> deleteCourse(@PathVariable Long id) {
+        System.out.println("Deleting course with id " + id);
         Boolean result = courseService.deleteCourse(id);
-        if(result) return new ResponseEntity<>(id, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(!result) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        System.out.println("Course deleted");
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @PostMapping("/courses/grades/add/{studentId}/{courseId}/{maxPoints}")
     public ResponseEntity<Long> addGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long maxPoints) {
+        System.out.println("Adding grade for student " + studentId + " and course " + courseId + " with max points " + maxPoints);
         Grade result = gradeService.addGrade(studentId, courseId, maxPoints);
-        if(result != null) return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        System.out.println("Grade added");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/courses/grades/update/{studentId}/{courseId}/{points}")
     public ResponseEntity<Grade> updateGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long points) {
+        System.out.println("Updating grade for student " + studentId + " and course " + courseId + " with points " + points);
         Integer result = gradeService.updateGrade(studentId, courseId, points);
-        if(result > 0) return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(result <= 0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        System.out.println("Grade updated");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping("/courses/average")
     public String getCourseAverageGrade(Model model) {
         HashMap<Course, Double> courses = courseService.getAverageGrade();
-        model.addAttribute("courses", courses.keySet());
-        model.addAttribute("grades", courses.values());
-        return "courses.html";
+        model.addAttribute("courses", courses);
+        return "average_courses.html";
     }
 
-   //@RequestMapping("/average_grades")
-   //public String getCourseAverageGrades(Model model) {
-   //    List<Course> courses = courseService.getCourses();
-   //    courses.forEach(p -> log.info("SELECTED: {}", p));
-   //    model.addAttribute("courses", courses);
-
-   //
-
-
-   //    return "course_grades.html";
-   //}
-
-
-    /*@RequestMapping("/add_student_to_course/{studentId}/{courseId}")
-    public String addStudentToCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
-        courseService.addStudentToCourse(studentId, courseId);
-        return "success.html";
-    }TODO*/
 }

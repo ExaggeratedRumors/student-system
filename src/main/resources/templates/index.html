@@ -55,7 +55,7 @@
     <tr th:each="grade : ${grades}">
         <td th:text="${grade.student.name}"></td>
         <td th:text="${grade.course.name}"></td>
-        <td th:text="${grade.points}"></td>
+        <td th:text="${grade.points} + '/' + ${grade.maxPoints}"></td>
     </tr>
     </tbody>
 </table>

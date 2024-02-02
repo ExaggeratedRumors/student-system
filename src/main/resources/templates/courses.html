@@ -36,6 +36,7 @@
     <br>
     <br>
     <button onclick="redirectToStudents()">Studenci</button>
+    <button onclick="redirectToAverageCourses()">Wyświetl średnie dla przedmiotów</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -75,6 +76,10 @@
 
         function redirectToStudents() {
             window.location.href = "/students";
+        }
+
+        function redirectToAverageCourses() {
+            window.location.href = "/courses/average";
         }
     </script>
 </body>

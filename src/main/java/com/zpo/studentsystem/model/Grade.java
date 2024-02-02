@@ -14,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Grade implements Serializable {
     @EmbeddedId
-    private GradeId id;
+    public GradeId id;
 
     @ManyToOne/*(cascade = CascadeType.)*/
     @MapsId("studentId")
@@ -27,4 +27,8 @@ public class Grade implements Serializable {
 
     private Long points;
     private Long maxPoints;
+
+    public double getPercentage() {
+        return ((double) points / (double) maxPoints) * 100;
+    }
 }

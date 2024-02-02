@@ -51,7 +51,7 @@ public class CourseService {
 
         for(Course c : courses) {
             value = c.getGrades().stream()
-                    .mapToDouble(Grade::getPoints)
+                    .mapToDouble(Grade::getPercentage)
                     .average()
                     .orElse(0.0);
             averageGrades.put(c, value);
