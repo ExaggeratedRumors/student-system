@@ -42,8 +42,8 @@
             window.location.href = "/delete_course/" + courseId;
         }
         function updateCourseAction() {
-            var courseName = document.getElementById("courseName").value;
-            var form = document.querySelector("form");
+            const courseName = document.getElementById("courseName").value;
+            const form = document.querySelector("form");
             form.action = "/add_course/" + encodeURIComponent(courseName);
         }
         function redirectToStudents() {

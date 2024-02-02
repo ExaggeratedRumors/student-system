@@ -1,10 +1,31 @@
-GET http://localhost:8080/fill
+### Dodawanie pięciu studentów
+POST http://localhost:8080/students/add/Halford/Smith
 ###
-GET http://localhost:8080/add_course/a
+POST http://localhost:8080/students/add/Thomas/Tarantino
 ###
-GET http://localhost:8080/add_course/b
+POST http://localhost:8080/students/add/Elvis/Ratzinger
 ###
-GET http://localhost:8080/add_grade/1/1/10
+POST http://localhost:8080/students/add/Emma/Talyor
+###
+POST http://localhost:8080/students/add/Jessica/Swift
+
+### Usuwanie studenta o ID = 5
+DELETE http://localhost:8080/students/delete/5
+
+### Dodawanie czterech kursów
+GET http://localhost:8080/add_course/PSI
+###
+GET http://localhost:8080/add_course/ZPO
+###
+GET http://localhost:8080/add_course/RIOBD
+###
+GET http://localhost:8080/add_course/AD
+
+### Usuwanie kursu o ID = 4
+GET http://localhost:8080/add_course/AD
+
+
+
 ###
 GET http://localhost:8080/add_grade/1/2/10
 ###
@@ -12,13 +33,4 @@ GET http://localhost:8080/grades/1
 ###
 GET http://localhost:8080/remove_course/1
 ###
-POST http://localhost:8080/grades/
-Content-Type: application/json
-
-{
-  "studentId": 1,
-  "name": "marcin",
-  "surname": "marcinb",
-  "gradeId": 1
-}
 

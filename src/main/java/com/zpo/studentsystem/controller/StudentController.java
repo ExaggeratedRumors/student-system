@@ -1,18 +1,20 @@
 package com.zpo.studentsystem.controller;
 
 import com.zpo.studentsystem.model.Grade;
-import com.zpo.studentsystem.service.CourseService;
 import com.zpo.studentsystem.model.Student;
+import com.zpo.studentsystem.service.GradeService;
 import com.zpo.studentsystem.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,38 +22,36 @@ class StudentController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    StudentService service;
+    StudentService studentService;
+
+    @Autowired
+    GradeService gradeService;
 
     @RequestMapping("/students")
     public String getStudents(Model model) {
-        List<Student> students = service.getStudents();
+        List<Student> students = studentService.getStudents();
         students.forEach(p -> log.info("SELECTED: {}", p));
         model.addAttribute("students", students);
-        return "index.html";
-    }
-    @RequestMapping("/delete_student/{id}")
-    public String deleteStudent(@PathVariable Long id) {
-        service.deleteStudent(id);
-        return "success.html";
+        return "students.html";
     }
 
-    @RequestMapping("/add_student/{name}/{surname}")
-    public String addStudent(@PathVariable String name, @PathVariable String surname) {
-        service.addStudent(name, surname);
-        return "success.html";
+    @PostMapping("/students/add/{name}/{surname}")
+    public ResponseEntity<Student> addStudent(@PathVariable String name, @PathVariable String surname) {
+        Student result = studentService.addStudent(name, surname);
+        if(result != null) return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-
-    @RequestMapping("/fill")
-    public String fillStudentList() {
-        service.fillStudentList();
-        return "success.html";
+    @DeleteMapping("/students/delete/{id}")
+    public ResponseEntity<Long> deleteStudent(@PathVariable Long id) {
+        Boolean result = studentService.deleteStudent(id);
+        if(result) return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping("/grades/{studentId}")
+    @RequestMapping("/students/grades/{studentId}")
     public String getGrades(@PathVariable Long studentId, Model model) {
-        List<Grade> grades = service.getGrades(studentId);
-        System.out.println("" + grades.size());
+        List<Grade> grades = gradeService.getStudentsGrades(studentId);
         grades.forEach(p -> log.info("SELECTED: {}", p));
         model.addAttribute("grades", grades);
         return "grades.html";

@@ -19,9 +19,6 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepo;
 
-    @Autowired
-    private StudentRepository gradeRepo;
-
     public List<Student> getStudents() {
         return studentRepo.findAll();
     }
@@ -33,24 +30,22 @@ public class StudentService {
         addStudent("ŚĆŹŻ", "1234");
     }
 
-    public void deleteStudent(Long id) {
-        getStudent(id);
-        studentRepo.deleteById(id);
-    }
-
-    public void addStudent(String name, String surname) {
-
+    public Student addStudent(String name, String surname) {
         Student student = new Student();
         student.setName(name);
         student.setSurname(surname);
-        studentRepo.save(student);
+        return studentRepo.save(student);
     }
 
-    public List<Grade> getGrades(Long studentId) {
-        return gradeRepo.findByStudentId(studentId);
+    public Boolean deleteStudent(Long id) {
+        if(getStudent(id) == null) return false;
+        studentRepo.deleteById(id);
+        return true;
     }
 
     public Student getStudent(Long studentId) {
-        return studentRepo.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found with id " + studentId));
+        return studentRepo.findById(studentId).orElseThrow(
+                () -> new EntityNotFoundException("Student not found with id " + studentId)
+        );
     }
 }

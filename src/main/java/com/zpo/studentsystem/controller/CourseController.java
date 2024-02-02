@@ -1,8 +1,7 @@
 package com.zpo.studentsystem.controller;
 
 import com.zpo.studentsystem.model.Course;
-import com.zpo.studentsystem.service.CourseService;
-import com.zpo.studentsystem.service.StudentService;
+import com.zpo.studentsystem.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,9 @@ class CourseController {
 
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    GradeService gradeService;
 
     @RequestMapping("/courses")
     public String getCourses(Model model) {
@@ -45,7 +47,7 @@ class CourseController {
 
     @RequestMapping("/add_grade/{studentId}/{courseId}/{points}")
     public String addGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long points) {
-        courseService.addGrade(studentId, courseId, points);
+        gradeService.addGrade(studentId, courseId, points);
         return "success.html";
     }
 
