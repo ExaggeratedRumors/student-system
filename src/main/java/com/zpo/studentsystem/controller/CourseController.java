@@ -1,10 +1,7 @@
 package com.zpo.studentsystem.controller;
 
 import com.zpo.studentsystem.model.Course;
-import com.zpo.studentsystem.model.Grade;
-import com.zpo.studentsystem.model.GradeId;
 import com.zpo.studentsystem.service.CourseService;
-import com.zpo.studentsystem.model.Student;
 import com.zpo.studentsystem.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,8 +37,8 @@ class CourseController {
         return "success.html";
     }
 
-    @RequestMapping("/remove_course/{id}")
-    public String removeCourse(@PathVariable Long id) {
+    @RequestMapping("/delete_course/{id}")
+    public String deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
         return "success.html";
     }
@@ -52,4 +48,23 @@ class CourseController {
         courseService.addGrade(studentId, courseId, points);
         return "success.html";
     }
+
+   //@RequestMapping("/average_grades")
+   //public String getCourseAverageGrades(Model model) {
+   //    List<Course> courses = courseService.getCourses();
+   //    courses.forEach(p -> log.info("SELECTED: {}", p));
+   //    model.addAttribute("courses", courses);
+
+   //
+
+
+   //    return "course_grades.html";
+   //}
+
+
+    /*@RequestMapping("/add_student_to_course/{studentId}/{courseId}")
+    public String addStudentToCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+        courseService.addStudentToCourse(studentId, courseId);
+        return "success.html";
+    }TODO*/
 }

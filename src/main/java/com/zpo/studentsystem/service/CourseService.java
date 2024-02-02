@@ -45,7 +45,7 @@ public class CourseService {
 
     public void addGrade(Long studentId, Long courseId, Long points) {
         System.out.println("Adding grade for student: " + studentId + " and course: " + courseId + " with points: " + points);
-        Student student = studentRepo.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + studentId));
+        Student student = studentRepo.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found with id " + studentId));
         System.out.println(student);
         Course course = courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
         System.out.println(course);
@@ -64,4 +64,5 @@ public class CourseService {
     public Course getCourse(Long courseId) {
         return courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
     }
+
 }

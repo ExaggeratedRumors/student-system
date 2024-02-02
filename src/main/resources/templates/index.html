@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head>
+<head>
     <meta charset="UTF-8">
-    <title></title>
-    </head>
-    <body>
+    <title>Studenci</title>
+</head>
+<body>
+    <h1>Studenci</h1>
     <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
         <thead>
         <tr>
             <th>ID</th>
             <th>Imię</th>
             <th>Nazwisko</th>
-            <th>Ocena</th>
+            <th> </th>
         </tr>
         </thead>
         <tbody>
@@ -19,8 +20,48 @@
             <td th:text="${s.studentId}">ID</td>
             <td th:text="${s.name}">Imię</td>
             <td th:text="${s.surname}">Nazwisko</td>
+            <td>
+                <button type="button" th:onclick="'deleteStudent(' + ${s.studentId} + ')'">Usuń</button>
+
+                <button type="button" th:onclick="'viewStudentGrades(' + ${s.studentId} + ')'">Oceny</button>
+            </td>
         </tr>
         </tbody>
     </table>
-    </body>
+
+    <h2>Dodawanie studenta</h2>
+    <form action="/add_student" method="post">
+        <label for="name">Imię:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="surname">Nazwisko:</label>
+        <input type="text" id="surname" name="surname" required>
+
+        <button type="submit" onclick="updateAction()">Dodaj studenta</button>
+    </form>
+    <br>
+    <br>
+    <button onclick="redirectToCourses()">Przedmioty</button>
+
+    <script>
+        function deleteStudent(studentId) {
+            window.location.href = "/delete_student/" + studentId;
+        }
+
+        function viewStudentGrades(studentId) {
+            window.location.href = "/grades/" + studentId;
+        }
+
+        function updateAction() {
+            var name = document.getElementById("name").value;
+            var surname = document.getElementById("surname").value;
+            var form = document.querySelector("form");
+            form.action = "/add_student/" + encodeURIComponent(name) + "/" + encodeURIComponent(surname);
+        }
+
+        function redirectToCourses() {
+            window.location.href = "/courses";
+        }
+    </script>
+</body>
 </html>
