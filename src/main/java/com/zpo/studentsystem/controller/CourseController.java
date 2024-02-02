@@ -48,4 +48,23 @@ class CourseController {
         courseService.addGrade(studentId, courseId, points);
         return "success.html";
     }
+
+   //@RequestMapping("/average_grades")
+   //public String getCourseAverageGrades(Model model) {
+   //    List<Course> courses = courseService.getCourses();
+   //    courses.forEach(p -> log.info("SELECTED: {}", p));
+   //    model.addAttribute("courses", courses);
+
+   //
+
+
+   //    return "course_grades.html";
+   //}
+
+
+    /*@RequestMapping("/add_student_to_course/{studentId}/{courseId}")
+    public String addStudentToCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+        courseService.addStudentToCourse(studentId, courseId);
+        return "success.html";
+    }TODO*/
 }

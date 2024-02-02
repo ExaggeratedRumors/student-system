@@ -2,15 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Przedmioty</title>
 </head>
 <body>
+    <h1>Przedmioty</h1>
     <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
         <thead>
         <tr>
             <th>ID</th>
             <th>Nazwa</th>
-            <th>Akcje</th>
+            <th> </th>
         </tr>
         </thead>
         <tbody>
@@ -18,28 +19,28 @@
             <td th:text="${c.courseId}">ID</td>
             <td th:text="${c.name}">Nazwa</td>
             <td>
-                <button type="button" th:onclick="'deleteCourse(' + ${c.courseId} + ')'">Remove</button>
+                <button type="button" th:onclick="'deleteCourse(' + ${c.courseId} + ')'">Usuń</button>
             </td>
         </tr>
         </tbody>
     </table>
 
-
+    <h2>Dodawanie przedmiotu</h2>
     <form action="/add_course" method="post">
-        <label for="courseName">Course Name:</label>
+        <label for="courseName">Nazwa przedmiotu:</label>
         <input type="text" id="courseName" name="courseName" required>
 
-        <button type="submit" onclick="updateCourseAction()">Add Course</button>
+        <button type="submit" onclick="updateCourseAction()">Dodaj przedmiot</button>
     </form>
 
-
-    <button onclick="redirectToStudents()">Go to Students</button>
+    <br>
+    <br>
+    <button onclick="redirectToStudents()">Studenci</button>
 
     <script>
         function deleteCourse(courseId) {
             window.location.href = "/delete_course/" + courseId;
         }
-
         function updateCourseAction() {
             var courseName = document.getElementById("courseName").value;
             var form = document.querySelector("form");

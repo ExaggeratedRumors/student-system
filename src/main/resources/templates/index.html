@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Studenci</title>
 </head>
 <body>
+    <h1>Studenci</h1>
     <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
         <thead>
         <tr>
             <th>ID</th>
             <th>Imię</th>
             <th>Nazwisko</th>
-            <th>Ocena</th>
-            <th>Akcje</th>
+            <th> </th>
         </tr>
         </thead>
         <tbody>
@@ -21,31 +21,35 @@
             <td th:text="${s.name}">Imię</td>
             <td th:text="${s.surname}">Nazwisko</td>
             <td>
-                <button type="button" th:onclick="'deleteStudent(' + ${s.studentId} + ')'">Remove</button>
+                <button type="button" th:onclick="'deleteStudent(' + ${s.studentId} + ')'">Usuń</button>
 
+                <button type="button" th:onclick="'viewStudentGrades(' + ${s.studentId} + ')'">Oceny</button>
             </td>
         </tr>
         </tbody>
     </table>
 
-
+    <h2>Dodawanie studenta</h2>
     <form action="/add_student" method="post">
-        <label for="name">Name:</label>
+        <label for="name">Imię:</label>
         <input type="text" id="name" name="name" required>
 
-        <label for="surname">Surname:</label>
+        <label for="surname">Nazwisko:</label>
         <input type="text" id="surname" name="surname" required>
 
-        <button type="submit" onclick="updateAction()">Add Student</button>
+        <button type="submit" onclick="updateAction()">Dodaj studenta</button>
     </form>
-
-    <button onclick="redirectToCourses()">Go to Courses</button>
+    <br>
+    <br>
+    <button onclick="redirectToCourses()">Przedmioty</button>
 
     <script>
-
-
         function deleteStudent(studentId) {
             window.location.href = "/delete_student/" + studentId;
+        }
+
+        function viewStudentGrades(studentId) {
+            window.location.href = "/grades/" + studentId;
         }
 
         function updateAction() {
@@ -59,6 +63,5 @@
             window.location.href = "/courses";
         }
     </script>
-
 </body>
 </html>

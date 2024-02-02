@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Grades</title>
+    <title>Oceny studenta</title>
 </head>
 <body>
-<h1>Grades for Student</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Student</th>
-        <th>Course</th>
-        <th>Points</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Iterate over the list of grades -->
-    <tr th:each="grade : ${grades}">
-        <td th:text="${grade.student.name}"></td>
-        <!-- Display the course name -->
-        <td th:text="${grade.course.name}"></td>
-        <!-- Display the points -->
-        <td th:text="${grade.points}"></td>
-    </tr>
-    </tbody>
-</table>
+    <h1>Oceny studenta</h1>
+    <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Przedmiot</th>
+            <th>Ocena</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="grade : ${grades}">
+            <td th:text="${grade.student.name}"></td>
+            <td th:text="${grade.course.name}"></td>
+            <td th:text="${grade.points}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <button onclick="redirectToCourses()">Przedmioty</button>
+    <button onclick="redirectToStudents()">Studenci</button>
+
+    <script>
+        function redirectToCourses() {
+            window.location.href = "/courses";
+        }
+        function redirectToStudents() {
+            window.location.href = "/students";
+        }
+    </script>
 </body>
 </html>
