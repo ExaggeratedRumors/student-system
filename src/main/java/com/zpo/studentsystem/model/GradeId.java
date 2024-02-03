@@ -8,11 +8,11 @@ import java.util.Objects;
 @Embeddable
 @Data
 public class GradeId implements java.io.Serializable {
-    private Long studentId;
+    private Long index;
     private Long courseId;
 
-    public GradeId(Long studentId, Long courseId) {
-        this.studentId = studentId;
+    public GradeId(Long index, Long courseId) {
+        this.index = index;
         this.courseId = courseId;
     }
 

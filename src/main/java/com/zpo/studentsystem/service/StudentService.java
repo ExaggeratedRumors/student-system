@@ -23,13 +23,6 @@ public class StudentService {
         return studentRepo.findAll();
     }
 
-    public void fillStudentList() {
-        addStudent("Lorem", "Ipsum");
-        addStudent("Zagrożenie", "Z Fizyki");
-        addStudent("Chat", "GPT");
-        addStudent("ŚĆŹŻ", "1234");
-    }
-
     public Student addStudent(String name, String surname) {
         Student student = new Student();
         student.setName(name);
@@ -37,15 +30,15 @@ public class StudentService {
         return studentRepo.save(student);
     }
 
-    public Boolean deleteStudent(Long id) {
-        if(getStudent(id) == null) return false;
-        studentRepo.deleteById(id);
+    public Boolean deleteStudent(Long index) {
+        if(getStudent(index) == null) return false;
+        studentRepo.deleteById(index);
         return true;
     }
 
-    public Student getStudent(Long studentId) {
-        return studentRepo.findById(studentId).orElseThrow(
-                () -> new EntityNotFoundException("Student not found with id " + studentId)
+    public Student getStudent(Long index) {
+        return studentRepo.findById(index).orElseThrow(
+                () -> new EntityNotFoundException("Student not found with id " + index)
         );
     }
 }

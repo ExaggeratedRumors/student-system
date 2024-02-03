@@ -11,14 +11,14 @@
 <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
     <thead>
     <tr>
-        <th>ID</th>
+        <th>Index</th>
         <th>Imię</th>
         <th>Nazwisko</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="s : ${students}">
-        <td th:text="${s.studentId}">ID</td>
+        <td th:text="${s.index}">ID</td>
         <td th:text="${s.name}">Imię</td>
         <td th:text="${s.surname}">Nazwisko</td>
     </tr>
@@ -53,7 +53,7 @@
     </thead>
     <tbody>
     <tr th:each="grade : ${grades}">
-        <td th:text="${grade.student.name}"></td>
+        <td th:text="${grade.student.name} + ' ' + ${grade.student.surname}"></td>
         <td th:text="${grade.course.name}"></td>
         <td th:text="${grade.points} + '/' + ${grade.maxPoints}"></td>
     </tr>

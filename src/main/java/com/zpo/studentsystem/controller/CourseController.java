@@ -54,19 +54,19 @@ class CourseController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PostMapping("/courses/grades/add/{studentId}/{courseId}/{maxPoints}")
-    public ResponseEntity<Long> addGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long maxPoints) {
-        System.out.println("Adding grade for student " + studentId + " and course " + courseId + " with max points " + maxPoints);
-        Grade result = gradeService.addGrade(studentId, courseId, maxPoints);
+    @PostMapping("/courses/grades/add/{index}/{courseId}/{maxPoints}")
+    public ResponseEntity<Long> addGrade(@PathVariable Long index, @PathVariable Long courseId, @PathVariable Long maxPoints) {
+        System.out.println("Adding grade for student " + index + " and course " + courseId + " with max points " + maxPoints);
+        Grade result = gradeService.addGrade(index, courseId, maxPoints);
         if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         System.out.println("Grade added");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/courses/grades/update/{studentId}/{courseId}/{points}")
-    public ResponseEntity<Grade> updateGrade(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable Long points) {
-        System.out.println("Updating grade for student " + studentId + " and course " + courseId + " with points " + points);
-        Integer result = gradeService.updateGrade(studentId, courseId, points);
+    @PostMapping("/courses/grades/update/{index}/{courseId}/{points}")
+    public ResponseEntity<Grade> updateGrade(@PathVariable Long index, @PathVariable Long courseId, @PathVariable Long points) {
+        System.out.println("Updating grade for student " + index + " and course " + courseId + " with points " + points);
+        Integer result = gradeService.updateGrade(index, courseId, points);
         if(result <= 0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         System.out.println("Grade updated");
         return new ResponseEntity<>(HttpStatus.OK);

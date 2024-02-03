@@ -40,26 +40,26 @@ class StudentController {
         System.out.println("Adding student \"" + name + " " + surname + "\"");
         Student result = studentService.addStudent(name, surname);
         if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        System.out.println("Student added with id " + result.getStudentId());
+        System.out.println("Student added with id " + result.getIndex());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping("/students/delete/{id}")
-    public ResponseEntity<Long> deleteStudent(@PathVariable Long id) {
-        System.out.println("Deleting student with id " + id);
-        Boolean result = studentService.deleteStudent(id);
+    @DeleteMapping("/students/delete/{index}")
+    public ResponseEntity<Long> deleteStudent(@PathVariable Long index) {
+        System.out.println("Deleting student with id " + index);
+        Boolean result = studentService.deleteStudent(index);
         if(!result) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         System.out.println("Student deleted");
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(index, HttpStatus.OK);
     }
 
-    @RequestMapping("/students/grades/{studentId}")
-    public String getGrades(@PathVariable Long studentId, Model model) {
-        List<Grade> grades = gradeService.getStudentsGrades(studentId);
+    @RequestMapping("/students/grades/{index}")
+    public String getGrades(@PathVariable Long index, Model model) {
+        List<Grade> grades = gradeService.getStudentsGrades(index);
         List<Course> courses = courseService.getCourses();
         model.addAttribute("grades", grades);
         model.addAttribute("courses", courses);
-        model.addAttribute("studentId", studentId);
+        model.addAttribute("index", index);
         return "grades.html";
     }
 }

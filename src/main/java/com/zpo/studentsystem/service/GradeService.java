@@ -32,22 +32,22 @@ public class GradeService {
     }
 
     public List<Grade> getStudentsGrades(Long studentId) {
-        return gradeRepo.findByStudentId(studentId);
+        return gradeRepo.findByIndex(studentId);
     }
 
-    public Grade addGrade(Long studentId, Long courseId, Long maxPoints) {
+    public Grade addGrade(Long index, Long courseId, Long maxPoints) {
         if(maxPoints < 1) return null;
-        Student student = studentRepo.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found with id " + studentId));
+        Student student = studentRepo.findById(index).orElseThrow(() -> new EntityNotFoundException("Student not found with index " + index));
         Course course = courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
         if(student == null || course == null) return null;
-        Grade grade = new Grade( new GradeId(studentId, courseId), student, course, 0L, maxPoints);
+        Grade grade = new Grade( new GradeId(index, courseId), student, course, 0L, maxPoints);
         return gradeRepo.save(grade);
     }
 
-    public Integer updateGrade(Long studentId, Long courseId, Long points) {
+    public Integer updateGrade(Long index, Long courseId, Long points) {
         if(points < 0) return -1;
-        Long maxPoints = gradeRepo.findById(new GradeId(studentId, courseId)).orElseThrow(() -> new EntityNotFoundException("Grade not found with studentId " + studentId + " and courseId " + courseId)).getMaxPoints();
+        Long maxPoints = gradeRepo.findById(new GradeId(index, courseId)).orElseThrow(() -> new EntityNotFoundException("Grade not found with index " + index + " and courseId " + courseId)).getMaxPoints();
         if(points > maxPoints) return -1;
-        return gradeRepo.updateGrade(studentId, courseId, points);
+        return gradeRepo.updateGrade(index, courseId, points);
     }
 }

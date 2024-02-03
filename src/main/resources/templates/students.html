@@ -16,20 +16,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="s : ${students}" th:data-student-id="${s.studentId}">
-        <td th:text="${s.studentId}">ID</td>
+    <tr th:each="s : ${students}" th:data-student-id="${s.index}">
+        <td th:text="${s.index}">Index</td>
         <td th:text="${s.name}">Imię</td>
         <td th:text="${s.surname}">Nazwisko</td>
         <td>
-            <button type="button" class="delete-button" th:data-student-id="${s.studentId}">Usuń</button>
-            <button type="button" th:onclick="'viewStudentGrades(' + ${s.studentId} + ')'">Oceny</button>
+            <button type="button" class="delete-button" th:data-student-id="${s.index}">Usuń</button>
+            <button type="button" th:onclick="'viewStudentGrades(' + ${s.index} + ')'">Oceny</button>
         </td>
     </tr>
     </tbody>
 </table>
 
 <h2>Dodawanie studenta</h2>
-<form action="/students/add" method="post">
+<form action="/students" method="post">
     <label for="name">Imię:</label>
     <input type="text" id="name" name="name" required>
 
@@ -51,12 +51,12 @@
         });
     });
 
-    function deleteStudent(studentId) {
-        fetch('/students/delete/' + studentId,  {
+    function deleteStudent(index) {
+        fetch('/students/delete/' + index,  {
             method: 'DELETE'
         }).then(response => {
             if (response.ok) {
-                document.querySelector('tr[data-student-id="' + studentId + '"]').remove();
+                document.querySelector('tr[data-student-id="' + index + '"]').remove();
             } else {
                 alert("Nie udało się usunąć studenta.");
             }
@@ -66,8 +66,8 @@
         });
     }
 
-    function viewStudentGrades(studentId) {
-        window.location.href = "/students/grades/" + studentId;
+    function viewStudentGrades(index) {
+        window.location.href = "/students/grades/" + index;
     }
 
     function updateAction() {

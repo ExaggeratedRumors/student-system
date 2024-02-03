@@ -17,8 +17,8 @@ public class Grade implements Serializable {
     public GradeId id;
 
     @ManyToOne/*(cascade = CascadeType.)*/
-    @MapsId("studentId")
-    @JoinColumn(name = "student_id")
+    @MapsId("index")
+    @JoinColumn(name = "index")
     private Student student;
     @ManyToOne/*(cascade = CascadeType.)*/
     @MapsId("courseId")

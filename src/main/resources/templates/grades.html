@@ -6,92 +6,92 @@
     <title>Oceny studenta</title>
 </head>
 <body>
-    <h1>Oceny studenta</h1>
-    <table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
-        <thead>
-            <tr>
-                <th>Przedmiot</th>
-                <th>Ocena</th>
-                <th>Zmodyfikuj ocenę</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="grade, iterStat : ${grades}">
+<h1>Oceny studenta</h1>
+<table border="1" cellpadding="10" xmlns:th="http://www.w3.org/1999/xhtml">
+    <thead>
+    <tr>
+        <th>Przedmiot</th>
+        <th>Ocena</th>
+        <th>Zmodyfikuj ocenę</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="grade, iterStat : ${grades}">
 
-                <td th:text="${grade.course.name}"></td>
-                <td th:text="${grade.points} + '/' + ${grade.maxPoints}"></td>
-                <td>
-                    <form th:action="@{/courses/grades/edit}" method="post">
-                        <input type="hidden" th:id="'studentId_' + ${iterStat.index}" name="studentId" th:value="${studentId}" required>
-                        <input type="hidden" th:id="'courseId_' + ${iterStat.index}" name="courseId" th:value="${grade.course.courseId}" required>
-                        <input type="number" th:id="'points_' + ${iterStat.index}" name="points" th:value="${grade.points}" required>
-                        <button type="submit" th:onclick="'setGrade(' + ${iterStat.index} + ')'" > Zapisz</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-
-
-    <h2>Dodawanie oceny</h2>
-    <form action="/courses/add" method="post">
-
-        <input type="hidden" id="studentId" name="studentId" th:value="${studentId}" required>
-
-        <label for="courseId">Wybierz przedmiot:</label>
-        <select id="courseId" name="courseId" required>
-            <option th:each="course : ${courses}" th:value="${course.courseId}" th:text="${course.name}"></option>
-        </select>
-
-        <label for="maxPoints">Maksymalna ilość punktów:</label>
-        <input type="number" id="maxPoints" name="maxPoints" required>
-
-        <button type="submit" onclick="setMaxPoints()">Dodaj ocenę</button>
-    </form>
-
-    <br>
-    <br>
-    <button onclick="redirectToCourses()">Przedmioty</button>
-    <button onclick="redirectToStudents()">Studenci</button>
-
-    <script>
-        function redirectToCourses() {
-            window.location.href = "/courses";
-        }
-        function redirectToStudents() {
-            window.location.href = "/students";
-        }
+        <td th:text="${grade.course.name}"></td>
+        <td th:text="${grade.points} + '/' + ${grade.maxPoints}"></td>
+        <td>
+            <form th:action="@{'/students/grades/' + ${index}}" method="post">
+                <input type="hidden" th:id="'studentId_' + ${iterStat.index}" name="studentId" th:value="${index}" required>
+                <input type="hidden" th:id="'courseId_' + ${iterStat.index}" name="courseId" th:value="${grade.course.courseId}" required>
+                <input type="number" th:id="'points_' + ${iterStat.index}" name="points" th:value="${grade.points}" required>
+                <button type="submit" th:onclick="'setGrade(' + ${iterStat.index} + ')'" > Zapisz</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 
-        function setMaxPoints() {
-            const studentId = document.getElementById("studentId").value;
-            const courseId = document.getElementById("courseId").value;
-            const maxPoints = document.getElementById("maxPoints").value;
-            fetch('/courses/grades/add/' + studentId + '/' + courseId + '/' + maxPoints,  {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }).then( _ => {
-                window.location.href = "/students/grades/" + studentId;
-            });
-        }
 
-        function setGrade(index) {
-            const studentId = document.getElementById("studentId_" + index).value;
-            const courseId = document.getElementById("courseId_" + index).value;
-            const points = document.getElementById("points_" + index).value;
+<h2>Dodawanie oceny</h2>
+<form th:action="@{'/students/grades/' + ${index}}" method="post">
 
-            fetch('/courses/grades/update/' + studentId + '/' + courseId + '/' + points, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }).then(_ => {
-                window.location.href = "/students/grades/" + studentId;
-            });
-        }
-    </script>
+    <input type="hidden" id="studentId" name="studentId" th:value="${index}" required>
+
+    <label for="courseId">Wybierz przedmiot:</label>
+    <select id="courseId" name="courseId" required>
+        <option th:each="course : ${courses}" th:value="${course.courseId}" th:text="${course.name}"></option>
+    </select>
+
+    <label for="maxPoints">Maksymalna ilość punktów:</label>
+    <input type="number" id="maxPoints" name="maxPoints" required>
+
+    <button type="submit" onclick="setMaxPoints()">Dodaj ocenę</button>
+</form>
+
+<br>
+<br>
+<button onclick="redirectToCourses()">Przedmioty</button>
+<button onclick="redirectToStudents()">Studenci</button>
+
+<script>
+    function redirectToCourses() {
+        window.location.href = "/courses";
+    }
+    function redirectToStudents() {
+        window.location.href = "/students";
+    }
+
+
+    function setMaxPoints() {
+        const studentId = document.getElementById("studentId").value;
+        const courseId = document.getElementById("courseId").value;
+        const maxPoints = document.getElementById("maxPoints").value;
+        fetch('/courses/grades/add/' + studentId + '/' + courseId + '/' + maxPoints,  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then( _ => {
+            window.location.href = "/students/grades/" + studentId;
+        });
+    }
+
+    function setGrade(index) {
+        const studentId = document.getElementById("studentId_" + index).value;
+        const courseId = document.getElementById("courseId_" + index).value;
+        const points = document.getElementById("points_" + index).value;
+
+        fetch('/courses/grades/update/' + studentId + '/' + courseId + '/' + points, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(_ => {
+            window.location.href = "/students/grades/" + studentId;
+        });
+    }
+</script>
 </body>
 </html>
