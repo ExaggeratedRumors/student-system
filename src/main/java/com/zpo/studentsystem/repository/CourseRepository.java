@@ -9,5 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * Repository for the Course entity.
+ */
 public interface CourseRepository extends JpaRepository<Course, Long> {
 }

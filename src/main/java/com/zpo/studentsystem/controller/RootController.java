@@ -12,6 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+
+/**
+ * Controller for the main page of the application.
+ * Contains methods for handling HTTP requests related to the root of the application.
+ */
 @Controller
 public class RootController {
     @Autowired
@@ -20,6 +25,9 @@ public class RootController {
     @Autowired
     StudentService studentService;
 
+    /**
+     * Method for viewing the main page of the application.
+     */
     @Autowired
     GradeService gradeService;
     @RequestMapping("/")

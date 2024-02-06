@@ -18,6 +18,10 @@ import java.util.HashMap;
 
 import java.util.List;
 
+/**
+ * Controller for the Course entity.
+ * Contains methods for handling HTTP requests related to courses.
+ */
 @Controller
 class CourseController {
     @Autowired
@@ -29,6 +33,11 @@ class CourseController {
     @Autowired
     GradeService gradeService;
 
+    /**
+     * Method for viewing the courses
+     * @param model Model for the view
+     * @return name of the html file
+     */
     @RequestMapping("/courses")
     public String getCourses(Model model) {
         List<Course> courses = courseService.getCourses();
@@ -36,6 +45,13 @@ class CourseController {
         return "courses.html";
     }
 
+    /**
+     * Method for adding a course
+     * @param name Name of the course
+     * @return ResponseEntity with the added course
+     *        If the course was not added, returns BAD_REQUEST.
+     *        If the course was added, returns OK.
+     */
     @PostMapping("/courses/add/{name}")
     public ResponseEntity<Course> addCourse(@PathVariable String name) {
         System.out.println("Adding course \"" + name+"\"");
@@ -45,6 +61,13 @@ class CourseController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * Method for deleting a course
+     * @param id Id of the course
+     * @return ResponseEntity with the id of the deleted course
+     *        If the course was not deleted, returns NOT_FOUND.
+     *        If the course was deleted, returns OK.
+     */
     @DeleteMapping("/courses/delete/{id}")
     public ResponseEntity<Long> deleteCourse(@PathVariable Long id) {
         System.out.println("Deleting course with id " + id);
@@ -54,7 +77,16 @@ class CourseController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PostMapping("/courses/grades/add/{index}/{courseId}/{maxPoints}")
+    /**
+     * Method for enrolling a student to a course
+     * @param index Index of the student
+     * @param courseId Id of the course
+     * @param maxPoints Maximum points of the grade
+     * @return ResponseEntity
+     *        If the student was not enrolled, returns BAD_REQUEST.
+     *        If the student was enrolled, returns OK.
+     */
+     @PostMapping("/courses/grades/add/{index}/{courseId}/{maxPoints}")
     public ResponseEntity<Long> addGrade(@PathVariable Long index, @PathVariable Long courseId, @PathVariable Long maxPoints) {
         System.out.println("Adding grade for student " + index + " and course " + courseId + " with max points " + maxPoints);
         Grade result = gradeService.addGrade(index, courseId, maxPoints);
@@ -63,6 +95,15 @@ class CourseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Method for setting a final grade
+     * @param index Index of the student
+     * @param courseId Id of the course
+     * @param points Points of the grade
+     * @return ResponseEntity
+     *        If the grade was not set returns BAD_REQUEST.
+     *        If the grade was set, returns OK.
+     */
     @PostMapping("/courses/grades/update/{index}/{courseId}/{points}")
     public ResponseEntity<Grade> updateGrade(@PathVariable Long index, @PathVariable Long courseId, @PathVariable Long points) {
         System.out.println("Updating grade for student " + index + " and course " + courseId + " with points " + points);
@@ -72,6 +113,11 @@ class CourseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Method for viewing the average grade for each course
+     * @param model Model for the view
+     * @return name of the html file
+     */
     @RequestMapping("/courses/average")
     public String getCourseAverageGrade(Model model) {
         HashMap<Course, Double> courses = courseService.getAverageGrade();

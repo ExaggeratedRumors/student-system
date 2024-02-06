@@ -11,6 +11,7 @@
     <thead>
     <tr>
         <th>Przedmiot</th>
+        <th>Punkty</th>
         <th>Ocena</th>
         <th>Zmodyfikuj ocenę</th>
     </tr>
@@ -20,6 +21,7 @@
 
         <td th:text="${grade.course.name}"></td>
         <td th:text="${grade.points} + '/' + ${grade.maxPoints}"></td>
+        <td th:text="${grade.finalGrade}"></td>
         <td>
             <form th:action="@{'/students/grades/' + ${index}}" method="post">
                 <input type="hidden" th:id="'studentId_' + ${iterStat.index}" name="studentId" th:value="${index}" required>

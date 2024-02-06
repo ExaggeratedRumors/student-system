@@ -48,6 +48,7 @@
     <tr>
         <th>Student</th>
         <th>Przedmiot</th>
+        <th>Punkty</th>
         <th>Ocena</th>
     </tr>
     </thead>
@@ -56,6 +57,7 @@
         <td th:text="${grade.student.name} + ' ' + ${grade.student.surname}"></td>
         <td th:text="${grade.course.name}"></td>
         <td th:text="${grade.points} + '/' + ${grade.maxPoints}"></td>
+        <td th:text="${grade.finalGrade}"></td>
     </tr>
     </tbody>
 </table>

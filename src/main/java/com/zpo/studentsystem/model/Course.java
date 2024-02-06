@@ -7,6 +7,11 @@ import lombok.*;
 import java.util.List;
 import java.util.ArrayList;
 
+
+/**
+ * Entity class representing a course.
+ * A course can have many grades - a one-to-many relationship.
+ */
 @Table(name="courses")
 @NoArgsConstructor
 @AllArgsConstructor

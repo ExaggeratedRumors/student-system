@@ -40,14 +40,19 @@ public class GradeService {
         Student student = studentRepo.findById(index).orElseThrow(() -> new EntityNotFoundException("Student not found with index " + index));
         Course course = courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
         if(student == null || course == null) return null;
-        Grade grade = new Grade( new GradeId(index, courseId), student, course, 0L, maxPoints);
+        Grade grade = new Grade( new GradeId(index, courseId), student, course, maxPoints);
         return gradeRepo.save(grade);
     }
 
     public Integer updateGrade(Long index, Long courseId, Long points) {
         if(points < 0) return -1;
-        Long maxPoints = gradeRepo.findById(new GradeId(index, courseId)).orElseThrow(() -> new EntityNotFoundException("Grade not found with index " + index + " and courseId " + courseId)).getMaxPoints();
-        if(points > maxPoints) return -1;
-        return gradeRepo.updateGrade(index, courseId, points);
+        Grade grade = gradeRepo.findById(new GradeId(index, courseId)).orElseThrow(() -> new EntityNotFoundException("Grade not found with index " + index + " and courseId " + courseId));
+        if(points > grade.getMaxPoints()) return -1;
+        Integer result = gradeRepo.updatePoints(index, courseId, points);
+        grade.setPoints(points);
+        if(result == 0) return result;
+        Double newGrade = grade.calculateFinalGrade();
+        gradeRepo.updateFinalGrade(index, courseId, newGrade);
+        return result;
     }
 }

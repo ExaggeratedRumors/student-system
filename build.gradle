@@ -23,6 +23,8 @@ dependencies {
     implementation "org.aspectj:aspectjrt:1.9.7"
     //implementation 'mysql:mysql-connector-java:8.0.28'
     implementation 'org.mybatis:mybatis:3.5.15'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.4'
+    implementation 'org.yaml:snakeyaml:2.2'
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'

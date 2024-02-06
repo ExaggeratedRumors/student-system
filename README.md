@@ -26,7 +26,7 @@ GET http://localhost:8080/students/
 
 ### Add course
 POST http://localhost:8080/courses/add/{name}
-### Remove kursu o ID = 1
+### Remove course
 DELETE http://localhost:8080/courses/delete/{courseId}
 ### Courses HTML page
 GET http://localhost:8080/courses
