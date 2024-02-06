@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for the Grade entity.
+ * Contains methods for adding, updating and getting grades.
+ */
 @Service
 @Transactional
 public class GradeService {
@@ -27,14 +31,29 @@ public class GradeService {
     @Autowired
     private StudentRepository studentRepo;
 
+    /**
+     * Method for getting all grades.
+     * @return List of all grades.
+     */
     public List<Grade> getGrades() {
         return gradeRepo.findAll();
     }
-
+    /**
+     * Method for getting all grades of a student.
+     * @param studentId Id of the student.
+     * @return List of all grades of the student.
+     */
     public List<Grade> getStudentsGrades(Long studentId) {
         return gradeRepo.findByIndex(studentId);
     }
 
+    /**
+     * Method for enrollment of a student to a course.
+     * @param index Index of the student.
+     * @param courseId Id of the course.
+     * @param maxPoints Maximum points of the grade.
+     * @return The added grade (0 points)
+     */
     public Grade addGrade(Long index, Long courseId, Long maxPoints) {
         if(maxPoints < 1) return null;
         Student student = studentRepo.findById(index).orElseThrow(() -> new EntityNotFoundException("Student not found with index " + index));
@@ -44,6 +63,13 @@ public class GradeService {
         return gradeRepo.save(grade);
     }
 
+    /**
+     * Method for updating the points of a grade.
+     * @param index Index of the student.
+     * @param courseId Id of the course.
+     * @param points New points of the grade.
+     * @return Number of updated grades. (Should be 1 if successful)
+     */
     public Integer updateGrade(Long index, Long courseId, Long points) {
         if(points < 0) return -1;
         Grade grade = gradeRepo.findById(new GradeId(index, courseId)).orElseThrow(() -> new EntityNotFoundException("Grade not found with index " + index + " and courseId " + courseId));
@@ -52,7 +78,8 @@ public class GradeService {
         grade.setPoints(points);
         if(result == 0) return result;
         Double newGrade = grade.calculateFinalGrade();
-        gradeRepo.updateFinalGrade(index, courseId, newGrade);
+        int res = gradeRepo.updateFinalGrade(index, courseId, newGrade);
+        if(res != 1) return res;
         return result;
     }
 }

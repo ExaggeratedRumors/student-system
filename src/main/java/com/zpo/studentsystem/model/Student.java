@@ -17,14 +17,29 @@ import java.util.List;
 @Setter
 @Getter
 public class Student {
+    /**
+     * The unique identifier of the student.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "index")
     private Long index;
+
+    /**
+     * The name of the student.
+     */
     @Column(name = "name")
     private String name;
+
+    /**
+     * The surname of the student.
+     */
     @Column(name = "surname")
     private String surname;
+
+    /**
+     * The list of grades obtained by the student.
+     */
     @Column(name = "grades")
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Grade> grades = new ArrayList<>();

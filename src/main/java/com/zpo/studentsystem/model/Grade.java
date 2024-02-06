@@ -18,27 +18,54 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Grade implements Serializable {
+    /**
+     * Composite primary key for the Grade class.
+     * A grade cannot exist without a student or a course.
+     */
     @EmbeddedId
     public GradeId id;
 
+    /**
+     * The student who received the grade.
+     */
     @ManyToOne
     @MapsId("index")
     @JoinColumn(name = "index")
     private Student student;
+
+    /**
+     * The course for which the grade was given.
+     */
     @ManyToOne
     @MapsId("courseId")
     @JoinColumn(name = "course_id")
     private Course course;
 
+    /**
+     * The number of points obtained by the student in the course.
+     */
     @Column(name = "points")
     private Long points;
 
+    /**
+     * The maximum number of points that can be obtained in the course.
+     */
     @Column(name = "max_points")
     private Long maxPoints;
 
+    /**
+     * The final grade obtained by the student in the course. Is null if the grade has not been processed yet.
+     */
     @Column(name = "final_grade")
     private Double finalGrade;
 
+    /**
+     * Constructor for the Grade class.
+     * @param gradeId Composite primary key for the Grade class.
+     * @param student The student who received the grade.
+     * @param course The course for which the grade was given.
+     * @param maxPoints The maximum number of points that can be obtained in the course.
+     */
     public Grade(GradeId gradeId, Student student, Course course, Long maxPoints) {
         this.id = gradeId;
         this.student = student;

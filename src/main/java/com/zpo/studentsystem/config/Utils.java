@@ -7,7 +7,8 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 
 /**
- * Class agregating loading configuration files.
+ * Class aggregating loading configuration files.
+ * Contains debug flag and grade thresholds.
  */
 public class Utils {
     static public Boolean DEBUG;
