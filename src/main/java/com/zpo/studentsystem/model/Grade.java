@@ -33,6 +33,8 @@ public class Grade implements Serializable {
 
     private Long points;
     private Long maxPoints;
+
+    @Column(name = "final_grade")
     private Double finalGrade;
 
     public Grade(GradeId gradeId, Student student, Course course, Long maxPoints) {
@@ -61,6 +63,8 @@ public class Grade implements Serializable {
         for (Map.Entry<Double, Double> entry : Utils.getGrades().entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue() + " " + percentage);
             if (entry.getKey() <= percentage) {
+                this.finalGrade = entry.getValue();
+                System.out.println("Final grade: " + finalGrade);
                 return finalGrade;
             }
         }

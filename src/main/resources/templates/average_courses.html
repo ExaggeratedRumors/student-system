@@ -17,7 +17,7 @@
         <!-- Iterate over courses and grades directly from the HashMap -->
         <tr th:each="entry : ${courses.entrySet()}">
             <td th:text="${entry.key.name}"></td>
-            <td th:text="${entry.value} + '%'"></td>
+            <td th:text="${entry.value}"></td>
         </tr>
     </table>
     <br>

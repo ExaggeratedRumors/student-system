@@ -56,6 +56,9 @@ class StudentController {
     @RequestMapping("/students/grades/{index}")
     public String getGrades(@PathVariable Long index, Model model) {
         List<Grade> grades = gradeService.getStudentsGrades(index);
+        grades.forEach(grade -> {
+            System.out.println("test " + grade.getFinalGrade() + " " + grade.getPoints() + " " + grade.getMaxPoints());
+        });
         List<Course> courses = courseService.getCourses();
         model.addAttribute("grades", grades);
         model.addAttribute("courses", courses);

@@ -52,7 +52,8 @@ public class GradeService {
         grade.setPoints(points);
         if(result == 0) return result;
         Double newGrade = grade.calculateFinalGrade();
-        gradeRepo.updateFinalGrade(index, courseId, newGrade);
+        int res = gradeRepo.updateFinalGrade(index, courseId, newGrade);
+        System.out.println("result: " + res);
         return result;
     }
 }

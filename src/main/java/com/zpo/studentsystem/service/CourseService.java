@@ -81,8 +81,9 @@ public class CourseService {
 
         for(Course c : courses) {
             value = c.getGrades().stream()
-                    .mapToDouble(Grade::calculateFinalGrade)
+                    .map(Grade::getFinalGrade)
                     .filter(Objects::nonNull)
+                    .mapToDouble(Double::doubleValue)
                     .average()
                     .orElse(0.0);
             averageGrades.put(c, value);
