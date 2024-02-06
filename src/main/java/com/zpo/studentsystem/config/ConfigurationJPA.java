@@ -11,5 +11,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.zpo.studentsystem.repository")
 @Configuration
 public class ConfigurationJPA {
-    Utils utils = new Utils();
 }

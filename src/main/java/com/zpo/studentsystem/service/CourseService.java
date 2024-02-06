@@ -2,17 +2,11 @@ package com.zpo.studentsystem.service;
 
 import com.zpo.studentsystem.model.Course;
 import com.zpo.studentsystem.model.Grade;
-import com.zpo.studentsystem.model.GradeId;
-import com.zpo.studentsystem.model.Student;
 import com.zpo.studentsystem.repository.CourseRepository;
-import com.zpo.studentsystem.repository.GradeRepository;
-import com.zpo.studentsystem.repository.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;

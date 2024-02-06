@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
 import java.util.Map;
-import com.zpo.studentsystem.config.Utils;
 
 /**
  * Represents a grade of a student in a course.
@@ -31,7 +30,10 @@ public class Grade implements Serializable {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @Column(name = "points")
     private Long points;
+
+    @Column(name = "max_points")
     private Long maxPoints;
 
     @Column(name = "final_grade")
@@ -61,10 +63,8 @@ public class Grade implements Serializable {
     public Double calculateFinalGrade() {
         double percentage = getPercentage();
         for (Map.Entry<Double, Double> entry : Utils.getGrades().entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue() + " " + percentage);
             if (entry.getKey() <= percentage) {
                 this.finalGrade = entry.getValue();
-                System.out.println("Final grade: " + finalGrade);
                 return finalGrade;
             }
         }

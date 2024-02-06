@@ -25,11 +25,14 @@ public class RootController {
     @Autowired
     StudentService studentService;
 
-    /**
-     * Method for viewing the main page of the application.
-     */
     @Autowired
     GradeService gradeService;
+
+    /**
+     * Method for viewing the main page of the application.
+     * @param model model of html template.
+     * @return name of html file.
+     */
     @RequestMapping("/")
     public String getCourses(Model model) {
         List<Course> courses = courseService.getCourses();

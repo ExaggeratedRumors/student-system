@@ -1,15 +1,11 @@
 package com.zpo.studentsystem.service;
 
-import com.zpo.studentsystem.model.Grade;
 import com.zpo.studentsystem.repository.StudentRepository;
 import com.zpo.studentsystem.model.Student;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**

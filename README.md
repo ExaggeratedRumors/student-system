@@ -13,8 +13,19 @@ Application based on Spring Boot and JPA.
 - Lombok
 - Thymeleaf
 
+## Configuration
+Only available configuration is the grades distribution what is loading from file `resources/grades.yaml` as map.
+```yaml
+0.9: 5.0
+0.8: 4.5
+0.7: 4.0
+0.6: 3.5
+0.5: 3.0
+0.0: 2.0
+```
+
 ## Endpoints
-Test requests are placed in `testRequests.http` file.
+Test requests are placed in `resources/testRequests.http` file.
 Implemented endpoints:
 ```http request
 ### Add student

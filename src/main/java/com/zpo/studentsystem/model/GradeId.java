@@ -1,11 +1,7 @@
 package com.zpo.studentsystem.model;
 
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.Objects;
-
 
 /**
  * Composite primary key for the Grade class.

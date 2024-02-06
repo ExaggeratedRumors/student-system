@@ -1,1 +1,0 @@
-insert into students (name, lastname, grades_id) values ('Fourier', 'Jean', 1);

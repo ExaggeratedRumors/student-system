@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import java.util.List;
 
 /**
- * Repository for the Grade entity.
+ * Repository of Grade entities.
  * Contains methods for finding and updating grades directly in the database.
  */
 public interface GradeRepository extends JpaRepository<Grade, GradeId> {

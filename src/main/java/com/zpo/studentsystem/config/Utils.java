@@ -10,13 +10,21 @@ import java.util.LinkedHashMap;
  * Class agregating loading configuration files.
  */
 public class Utils {
+    static public Boolean DEBUG;
+
     @Getter
     static LinkedHashMap<Double, Double> grades;
     static {
+        DEBUG = true;
         String gradesSourcePath = "/grades.yaml";
         grades = readGradesFromYaml(gradesSourcePath);
     }
 
+    /**
+     * Method loading grades from YAML file.
+     * @param sourcePath String of path to file location.
+     * @return Loaded object.
+     */
     @SneakyThrows
     public static LinkedHashMap<Double, Double> readGradesFromYaml(String sourcePath) {
         InputStream resource = Utils.class.getResourceAsStream(sourcePath);
